@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- displays site properly based on user's device -->
+   
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon-32x32.png">
+  
+  <title>Weather app</title>
+
+   
+  <style>
+    .attribution { font-size: 11px; text-align: center; }
+    .attribution a { color: hsl(228, 45%, 44%); }
+  </style>
+</head>
+<body>
+
+  Units
+
+  Switch to Imperial/Metric
+
+  Temperature
+
+  Celsius (°C)
+  Fahrenheit (°F)
+
+  Wind Speed
+
+  km/h
+  mph
+
+  Precipitation
+
+  Millimeters (mm)
+  Inches (in)
+
+  <div class="app">
+
+    <header class="header">
+      <div class="logoContainer">
+      <img src="./assets/images/logo.svg">
+    </div>
+
+    <div class="unitsDropdown">
+      <button class="unitsButton">
+        <img class="unitsIcon" src="./assets/images/icon-units.svg">
+        <span>units</span>
+        <img class="dropdownIcon"src="./assets/images/icon-dropdown.svg">
+      </button>
+    </div>
+
+    </header>
+
+  
+  
+
+ <div class="searchSection">
+<h1> How's the sky looking today?</h1>
+
+<form class="searchContainer">
+  <div class="searchInputWrapper">
+     <img class="searchIcon" src="./assets/images/icon-search.svg">
+     <inpu class="searchInput" placeholder = "search for a place..." type="text">
+  </div>
+
+   <button class="searchButton" type="submit">Search</button>
+
+</form>
+
+</div>
+ 
+<div class="displayDiv">
+  <img src="./assets/images/bg-today-large.svg">
+</div>
+
+<div class ="weatherDetailDiv">
+ <div class = "temperatureDiv">Feels like</div>
+  <!-- Insert temperature here -->
+
+ <div class = "humidityDiv">Humidity</div> 
+  <!-- Insert humidity here -->
+
+ <div class = "windDiv">Wind</div> 
+  <!-- Insert wind here -->   
+  
+ <div class = "precipitatonDiv">Precipitation</div> 
+  <!-- Insert precipitation here -->
+</div>
+  
+</div>
+
+
+
+ 
+
+  Daily forecast
+  <!-- Insert daily forecast for the next 7 days here -->
+
+  Hourly forecast
+  <!-- Insert hourly forecast for the selected day here -->
+
+</body>
+</html>
