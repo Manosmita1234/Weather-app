@@ -17,24 +17,6 @@
 </head>
 <body>
 
-  Units
-
-  Switch to Imperial/Metric
-
-  Temperature
-
-  Celsius (°C)
-  Fahrenheit (°F)
-
-  Wind Speed
-
-  km/h
-  mph
-
-  Precipitation
-
-  Millimeters (mm)
-  Inches (in)
 
   <div class="app">
 
@@ -62,7 +44,7 @@
 <form class="searchContainer">
   <div class="searchInputWrapper">
      <img class="searchIcon" src="./assets/images/icon-search.svg">
-     <inpu class="searchInput" placeholder = "search for a place..." type="text">
+     <input class="searchInput" placeholder = "search for a place..." type="text">
   </div>
 
    <button class="searchButton" type="submit">Search</button>
@@ -73,33 +55,61 @@
  
 <div class="displayDiv">
   <img src="./assets/images/bg-today-large.svg">
+  <div class="temperatureDisplay">20dd</div>
 </div>
 
 <div class ="weatherDetailDiv">
  <div class = "temperatureDiv">Feels like</div>
-  <!-- Insert temperature here -->
+
 
  <div class = "humidityDiv">Humidity</div> 
-  <!-- Insert humidity here -->
-
- <div class = "windDiv">Wind</div> 
-  <!-- Insert wind here -->   
-  
- <div class = "precipitatonDiv">Precipitation</div> 
-  <!-- Insert precipitation here -->
-</div>
-  
-</div>
-
-
-
  
 
-  Daily forecast
-  <!-- Insert daily forecast for the next 7 days here -->
+ <div class = "windDiv">Wind</div> 
+  
+ <div class = "precipitatonDiv">Precipitation</div> 
 
-  Hourly forecast
-  <!-- Insert hourly forecast for the selected day here -->
+</div>
+
+<div class="dailyForecastDivWrapper">
+  <h3 class="sectionTitle">Daily forecast</h3>  
+  <div class="dailyForecast">
+  <div class="dayCard">
+    <span>Wed</span>
+  </div>
+  <div class="dayCard">
+    <span>thurs</span>
+  </div>
+  <div class="dayCard">
+    <span>fri</span>
+  </div>
+  <div class="dayCard">
+    <span>sat</span>
+  </div>
+  <div class="dayCard">
+    <span>sun</span>
+  </div>
+  <div class="dayCard">
+    <span>mon</span>
+  </div>
+  <div class="dayCard">
+    <span>tues</span>
+  </div>
+
+  </div>
+
+</div>
+
+<div>
+  <h3>Hourly forecast</h3>
+</div>
+  
+</div>
+
+
+
+  <script src="scripts/script.js"></script>
+  <script src="scripts/weather-data.js"></script>
 
 </body>
 </html>
