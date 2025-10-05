@@ -23,8 +23,6 @@
 }
 
 
-
-
 body {
     margin: 0;
     place-items: center;
@@ -74,6 +72,7 @@ body {
     width: .75rem;
     height: .75rem;
 }
+
 .app{
     min-height: 100vh;
     background-color: var(--neutral-900);
@@ -149,14 +148,51 @@ h1{
 }
 
 .displayDiv{
-    width: 300px;
+    width: 700px;
     height: 200px;
+    display: flex;
+    flex-direction: column;
+    align-self:center;
+    background: linear-gradient(135deg, #5b6ce8, #4c5fd5);
+    border-radius: 1.5rem;
+    padding: 2.5rem;
+    position: relative;
+    overflow: hidden;
+    margin-top: 2rem;
+}
+
+.locationDisplay{
+    font-family: Bricolage Grotesque, sans-serif;
+    font-size: 2rem;
+    font-weight: 700;
+    margin: 0 0 .5rem;
+    
+}
+
+.dateDisplay{
+    font-size: 1.2rem;
+    color: #fffc;
+    margin: 0;
+    font-weight: 300;
+    margin-top: 0px;
+    width: 400px;
+    height: 40px;
+}
+
+.temperatureDisplay{
+    font-family: Bricolage Grotesque, sans-serif;
+    font-size: 90px;
+    font-weight: 700;
+    line-height: 1;
+    margin-top:20px;
+    margin-left: 180px;
 }
 
 .temperatureDiv, .humidityDiv, .windDiv, .precipitatonDiv{
     height: 150px;
-    width: 120px;
+    width: 200px;
     gap:15px;
+    border-radius: 1rem;
     background-color: hsl(243, 23%, 30%);
     color: white;
 }
@@ -195,6 +231,22 @@ h1{
     
 }
 
+p{
+    font-size: 1.2rem;
+    color: var(--neutral-300);
+    margin: 14px;
+    font-weight: 300;
+    text-align: center;
+    
+}
+
+.apparentTempDisplayData, .humidityDisplayData, .windDisplayData, .precipitationDisplayData {
+    font-size: 2.4rem;
+    font-weight: 600;
+    margin: 0;
+    text-align: center;
+}
+
 .unitButton{
     width: 100%;
     padding: .75rem 1rem;
@@ -211,6 +263,7 @@ h1{
 
 .dailyForecastDivWrapper{
    display: flex;
+   flex-direction: column;
    gap: 10px;
    margin-top: 3rem;
 }
@@ -219,11 +272,13 @@ h1{
     display: flex;
     gap: 1rem;
 }
+
 .sectionTitle{
     font-size: 1.125rem;
     font-weight: 600;
     margin: 0 0 1.25rem;
     color: var(--neutral-0);
+    text-align: center;
 }
 
 .dayCard{
@@ -238,11 +293,6 @@ h1{
     gap: .75rem;
 }
 
-.displayDiv{
-    margin-top: 2rem;
-    height: 300px;
-    
-}
 
 .weatherDetailDiv{
     margin-top: 2rem;
