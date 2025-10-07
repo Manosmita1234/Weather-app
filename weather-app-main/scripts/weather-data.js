@@ -101,7 +101,6 @@ function renderDailyData(dailyData){
       dailyForecastCard.innerHTML = ` <p>Max: ${dailyData.temperature_2m_max[index]}°C</p>
       <p>Min: ${dailyData.temperature_2m_min[index]}°C</p>`
     })
-
 }
 
 
@@ -126,3 +125,40 @@ document.querySelector(".searchButton").addEventListener("click", (e)=>{
     e.preventDefault();
     connectWithSearchBtn();
 });
+
+
+function createdayList(){
+    let existing = document.querySelector(".dayDiv");
+    if(existing){
+        existing.remove();
+        return;
+    }
+
+    let dayBtn = document.querySelector(".dayDisplay");
+    let dayDiv = document.createElement("div");
+    dayDiv.className = "dayDiv";
+
+    function createDayBtn(thatDay){
+    let day = document.createElement("button");
+    day.textContent = thatDay;
+    return day;
+ 
+    }
+
+    let sun = createDayBtn("Sun");
+    let mon = createDayBtn("Mon");
+    let tues = createDayBtn("Tues");
+    let wed = createDayBtn("Wed");
+    let thurs = createDayBtn("Thurs");
+    let fri = createDayBtn("Fri");
+    let sat = createDayBtn("Sat");
+    
+
+    dayBtn.appendChild(dayDiv);
+    dayDiv.append(sun, mon, tues, wed, thurs, fri, sat);
+    
+}
+
+ dayBtn = document.querySelector(".dayDisplay").addEventListener("click", ()=>{
+    createdayList();
+ })
