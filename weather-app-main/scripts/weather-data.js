@@ -56,7 +56,7 @@ function calculateFeelsLike(temp, humidity, wind) {
 
 
 async function fetchWeather(latitude, longitude){
-    const url =  `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current_weather=true&hourly=relativehumidity_2m,precipitation&daily=temperature_2m_max,temperature_2m_min`;
+    const url =  `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current_weather=true&hourly=temperature_2m,,weather_code,relativehumidity_2m,precipitation&daily=temperature_2m_max,temperature_2m_min&current=weather_code`;
     const response = await fetch(url);
     const data = await response.json();
 
@@ -72,15 +72,18 @@ async function fetchWeather(latitude, longitude){
     const feelsLike = calculateFeelsLike(current.temperature, humidity, windSpeed);
 
     const dailyData = data.daily;
+    const hourlyData = data.hourly;
+    console.log(data.hourly.weather_code);
+    console.log(data.current.weather_code);
 
-    return {current, humidity, precipitation, windSpeed, feelsLike, dailyData};
+    return {current, humidity, precipitation, windSpeed, feelsLike, dailyData, hourlyData};
 }
 
 
 function renderWeather(weatherData) {
   let {current, humidity, precipitation, windSpeed, feelsLike} = weatherData;
   const tempDiv = document.querySelector(".temperatureDisplay");
-  tempDiv.textContent = `${current.temperature}°C`;
+  tempDiv.textContent = `${Math.round(current.temperature)}°C`;
 
   const humidityDiv = document.querySelector(".humidityDisplayData");
   humidityDiv.textContent = `${humidity}%`;
@@ -89,18 +92,74 @@ function renderWeather(weatherData) {
   precipitationDiv.textContent = `${precipitation}mm`;
 
   const windSpeedDiv = document.querySelector('.windDisplayData');
-  windSpeedDiv.textContent = `${windSpeed}km/h`;
+  windSpeedDiv.textContent = `${Math.round(windSpeed)}km/h`;
 
   const feelsLikeDiv = document.querySelector(".apparentTempDisplayData");
-  feelsLikeDiv.textContent = `${feelsLike}°`;
+  feelsLikeDiv.textContent = `${Math.round(feelsLike)}°`;
 }
 
-function renderDailyData(dailyData){
-    const dailyForecastCard = document.querySelector(".daycard");
-    dailyData.time.forEach((index)=>{
-      dailyForecastCard.innerHTML = ` <p>Max: ${dailyData.temperature_2m_max[index]}°C</p>
-      <p>Min: ${dailyData.temperature_2m_min[index]}°C</p>`
-    })
+
+function renderDailyData(dailyData) {
+  let dayCards = document.querySelectorAll(".dayCard");
+  
+  dailyData.time.slice(0,7).forEach((date, index) => {
+    const dayCard = dayCards[index];
+    if (!dayCard) return;
+  
+    let maxTempDiv = dayCard.querySelector(".maxTemp");
+    let minTempDiv = dayCard.querySelector(".minTemp");
+    let daySpan = dayCard.querySelector(".day");
+
+    const dayName = new Date(date).toLocaleDateString("en-US", { weekday: "short" });
+    if (daySpan) daySpan.textContent = dayName;
+
+    let maxTemperature = Math.round(dailyData.temperature_2m_max[index]);
+    let minTemperature = Math.round(dailyData.temperature_2m_min[index]); 
+
+    if (maxTempDiv) maxTempDiv.textContent = `${maxTemperature}°`;
+    if (minTempDiv) minTempDiv.textContent = `${minTemperature}°`;
+  });
+}
+
+
+function renderHourlyData(hourlyData){
+    const timeArray = hourlyData.time;
+    const tempArray = hourlyData.temperature_2m;
+
+    const container = document.querySelector(".hourlyForecast");
+
+    const now = new Date();
+    const cutoff = new Date(now.getTime() + 24 * 60 * 60 * 1000); 
+
+    for(let i=0; i<timeArray.length; i++){
+        const date = new Date(timeArray[i]);
+        const hour = date.getHours();
+
+        if(date > cutoff) break;
+ 
+
+        if(hour % 3 ==0 && date>=now){
+            const hourCard = document.createElement("div");
+            hourCard.className = "hourCard";
+
+            const hourlyHourSpan = document.createElement("span");
+            hourlyHourSpan.className = "hourlyHourSpan";
+
+            const hourlyDataSpan = document.createElement("span");
+            hourlyDataSpan.className = "hourlyDataSpan";
+
+            let hourLabel = date.toLocaleString('en-US', { hour: 'numeric', hour12: true });
+            let temp = Math.round(tempArray[i]);
+
+            hourlyHourSpan.innerHTML = `${hourLabel}`;
+            hourlyDataSpan.innerHTML = `${temp}°C`;
+            container.appendChild(hourCard);
+            hourCard.append(hourlyHourSpan, hourlyDataSpan);
+            
+        }
+
+    }
+
 }
 
 
@@ -115,6 +174,7 @@ async function connectWithSearchBtn(){
         const weather = await fetchWeather(latitude, longitude);
         renderWeather(weather); 
         renderDailyData(weather.dailyData);
+        renderHourlyData(weather.hourlyData);
     } catch(err){
        alert(err.message);
     }
@@ -161,4 +221,5 @@ function createdayList(){
 
  dayBtn = document.querySelector(".dayDisplay").addEventListener("click", ()=>{
     createdayList();
- })
+ });
+

@@ -355,8 +355,8 @@ p{
 
 .maxminDisplay{
     display: flex;
-    font-size: 1rem;
-    gap: 0.5rem;
+    font-size: 15px;
+    gap: 35px;
 }
 
 .maxTemp{
@@ -397,13 +397,22 @@ p{
     background-color: var(--neutral-600);
 }
 
+.hourlyHourSpan{
+    font-size: .9375rem;
+    font-weight: 600;
+    flex: 1;
+    color: var(--neutral-0);
+    margin-right: 50px;
+}
 
-.hourTime{
-    font-size: 0.9375rem;
+.hourlyDataSpan{
+    font-size: .9375rem;
     font-weight: 600;
     color: var(--neutral-0);
-    flex: 1 1 0%;
 }
+
+
+
 
 .hourlyHeader{
     display: flex;
