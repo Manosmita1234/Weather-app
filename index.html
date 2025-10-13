@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- displays site properly based on user's device -->
+   
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon-32x32.png">
+  
+  <title>Weather app</title>
+
+   
+  <style>
+    .attribution { font-size: 11px; text-align: center; }
+    .attribution a { color: hsl(228, 45%, 44%); }
+  </style>
+</head>
+<body>
+
+
+  <div class="app">
+
+    <header class="header">
+      <div class="logoContainer">
+      <img src="./assets/images/logo.svg">
+    </div>
+
+    <div class="unitsDropdown">
+      <button class="unitsButton">
+        <img class="unitsIcon" src="./assets/images/icon-units.svg">
+        <span>units</span>
+        <img class="dropdownIcon"src="./assets/images/icon-dropdown.svg">
+      </button>
+    </div>
+
+    </header>
+
+
+ <div class="searchSection">
+<h1> How's the sky looking today?</h1>
+
+<form class="searchContainer">
+  <div class="searchInputWrapper">
+    <img class="searchIcon" src="./assets/images/icon-search.svg">
+    <input class="searchInput" placeholder = "search for a place..." type = "text">
+  </div>
+
+   <button class="searchButton" type="submit">Search</button>
+</form>
+
+</div>
+
+
+<main class="mainSection">
+  <div class="leftDiv">
+  <div class="displayDiv">
+  <div class="locationDisplay">india</div>
+  <div class="dateDisplay"></div>
+
+  <div class="tempIconDisplay">
+    <img class="iconDisplay" alt="" />
+    <div class="temperatureDisplay">20 C</div>
+
+  </div>
+</div>
+
+<div class ="weatherDetailDiv">
+ <div class = "temperatureDiv">
+  <p>Feels like</p>
+  <div class="apparentTempDisplayData">30 C</div>
+ </div>
+
+
+ <div class = "humidityDiv">
+  <p>Humidity</p>
+  <div class="humidityDisplayData">20%</div>
+ </div> 
+ 
+
+ <div class = "windDiv">
+  <p>Wind</p>
+  <div class="windDisplayData">9km/h</div>
+ </div> 
+  
+ <div class = "precipitatonDiv">
+  <p>Precipitation</p>
+  <div class="precipitationDisplayData">0mm</div>
+ </div> 
+
+</div>
+
+
+<div class="dailyForecastDivWrapper">
+  <h3 class="sectionTitle">Daily forecast</h3>  
+  <div class="dailyForecast">
+  <div div class="dayCard">
+    <span class="day"></span>
+    <img src="" alt="weather-icon" class="dailyTempIconDisplay">
+      <div class="maxminDisplay">
+      <span class="maxTemp"></span>
+      <span class="minTemp"></span>
+  </div>
+  </div>
+
+  <div class="dayCard">
+    <span class="day"></span>
+    <img src="" alt="weather-icon" class="dailyTempIconDisplay">
+    <div class="maxminDisplay">
+      <span class="maxTemp"></span>
+      <span class="minTemp"></span>
+    </div>
+  </div>
+
+  <div class="dayCard">
+    <span class="day"></span>
+    <img src="" alt="weather-icon" class="dailyTempIconDisplay">
+    <div class="maxminDisplay">
+      <span class="maxTemp"></span>
+      <span class="minTemp"></span>
+    </div>
+  </div>
+
+  <div class="dayCard">
+    <span class="day"></span>
+    <img src="" alt="weather-icon" class="dailyTempIconDisplay">
+    <div class="maxminDisplay">
+      <span class="maxTemp"></span>
+      <span class="minTemp"></span>
+    </div>
+  </div>
+
+  <div class="dayCard">
+    <span class="day"></span>
+    <img src="" alt="weather-icon" class="dailyTempIconDisplay">
+    <div class="maxminDisplay">
+       <span class="maxTemp"></span>
+      <span class="minTemp"></span>
+    </div>
+  </div>
+
+  <div class="dayCard">
+    <span class="day"></span>
+    <img src="" alt="weather-icon" class="dailyTempIconDisplay">
+    <div class="maxminDisplay">
+       <span class="maxTemp"></span>
+      <span class="minTemp"></span>
+    </div>
+  </div>
+
+  <div class="dayCard">
+    <span class="day"></span>
+    <img src="" alt="weather-icon" class="dailyTempIconDisplay">
+    <div class="maxminDisplay">
+      <span class="maxTemp"></span>
+      <span class="minTemp"></span>
+    </div>
+  </div>
+
+</div>
+
+ </div>
+
+</div>
+
+ <div class="rightDiv">
+  <div class="hourlyForecastDivWrapper">
+  <div class="hourlyHeader">
+  <h3>Hourly forecast</h3>
+  <button class="dayDisplay">
+    <span>sun</span>
+    <img src="./assets/images/icon-dropdown.svg">
+  </button> 
+  </div>
+ 
+  <div class="hourlyForecast">
+ </div>
+
+
+</main>
+
+
+  <script src="scripts/script.js"></script>
+  <script src="scripts/weather-data.js"></script>
+
+</body>
+</html>
