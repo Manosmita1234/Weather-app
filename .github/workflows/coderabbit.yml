@@ -14,8 +14,9 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Run CodeRabbit review
-        uses: coderabbitai/github-action@v1
+        uses: coderabbitai/coderabbit-action@main
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           coderabbit-token: ${{ secrets.CODERABBIT_TOKEN }}
+
 
