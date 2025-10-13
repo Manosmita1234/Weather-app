@@ -1,4 +1,4 @@
-name: Weather App CI
+name: Weather App Code Review + Deploy
 
 on:
   push:
@@ -11,14 +11,23 @@ on:
 jobs:
   code-review:
     runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      pull-requests: write
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Run CodeRabbit Review
-        uses: coderabbitai/coderabbit-action@v1
+      - name: Run CodeRabbit AI PR reviewer
+        uses: coderabbitai/ai-pr-reviewer@latest
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
         with:
-          api_token: ${{ secrets.CODERABBIT_API_TOKEN }}
+          debug: false
+          review_simple_changes: false
 
   deploy:
     runs-on: ubuntu-latest
@@ -32,5 +41,6 @@ jobs:
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./weather-app-main  # folder containing your index.html
+          publish_dir: ./weather-app-main   # adjust if your index.html is in another folder
+
 
