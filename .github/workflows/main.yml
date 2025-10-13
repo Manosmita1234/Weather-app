@@ -1,47 +1,45 @@
 name: Weather App CI & Code Review
 
-# Trigger on push to main or pull requests
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
+
   build:
     runs-on: ubuntu-latest
     steps:
-      # Checkout your repo
-      - name: Checkout repository
+      - name: Checkout code
         uses: actions/checkout@v4
-
-      # Setup Node.js
+      
+      # Optional Node setup if you use npm or bundlers like webpack, Vite, etc.
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 18
-
-      # Install dependencies
+      
+      # Install dependencies if you have package.json, else skip
       - name: Install dependencies
         run: npm install
-
-      # Run build (optional for vanilla JS, but keep if you use any bundler)
-      - name: Run build
-        run: npm run build || echo "No build script, skipping"
+        if: -f package.json
+      
+      # Run your build script if exists, else skip
+      - name: Build project
+        run: npm run build
+        if: -f package.json
 
   code-review:
     runs-on: ubuntu-latest
     needs: build
     steps:
-      # Checkout your repo
-      - name: Checkout repository
+      - name: Checkout code
         uses: actions/checkout@v4
-
-      # Run CodeRabbit code review
+      
       - name: Run CodeRabbit Review
-        uses: coderabbitai/coderabbit-action@main  # use 'main' if v1 doesn't exist
-        with:
-          openai_api_key: ${{ secrets.CODERABBIT_API_KEY }}
-          review_title: "Automated Code Review for Weather App"
-          # optional: specify files or directories to review
-          # paths: "scripts/, index.html, style.css"
+        uses: coderabbitai/ai-pr-reviewer@latest
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+
