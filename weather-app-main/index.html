@@ -35,16 +35,14 @@
 
     </header>
 
-  
-  
 
  <div class="searchSection">
 <h1> How's the sky looking today?</h1>
 
 <form class="searchContainer">
   <div class="searchInputWrapper">
-     <img class="searchIcon" src="./assets/images/icon-search.svg">
-     <input class="searchInput" placeholder = "search for a place..." type="text">
+    <img class="searchIcon" src="./assets/images/icon-search.svg">
+    <input class="searchInput" placeholder = "search for a place..." type = "text">
   </div>
 
    <button class="searchButton" type="submit">Search</button>
@@ -54,11 +52,16 @@
 
 
 <main class="mainSection">
-   <div class="leftDiv">
+  <div class="leftDiv">
   <div class="displayDiv">
   <div class="locationDisplay">india</div>
   <div class="dateDisplay"></div>
-  <div class="temperatureDisplay">20 C</div>
+
+  <div class="tempIconDisplay">
+    <img class="iconDisplay" alt="" />
+    <div class="temperatureDisplay">20 C</div>
+
+  </div>
 </div>
 
 <div class ="weatherDetailDiv">
@@ -92,6 +95,7 @@
   <div class="dailyForecast">
   <div div class="dayCard">
     <span class="day"></span>
+    <img src="" alt="weather-icon" class="dailyTempIconDisplay">
       <div class="maxminDisplay">
       <span class="maxTemp"></span>
       <span class="minTemp"></span>
@@ -100,6 +104,7 @@
 
   <div class="dayCard">
     <span class="day"></span>
+    <img src="" alt="weather-icon" class="dailyTempIconDisplay">
     <div class="maxminDisplay">
       <span class="maxTemp"></span>
       <span class="minTemp"></span>
@@ -108,6 +113,7 @@
 
   <div class="dayCard">
     <span class="day"></span>
+    <img src="" alt="weather-icon" class="dailyTempIconDisplay">
     <div class="maxminDisplay">
       <span class="maxTemp"></span>
       <span class="minTemp"></span>
@@ -116,6 +122,7 @@
 
   <div class="dayCard">
     <span class="day"></span>
+    <img src="" alt="weather-icon" class="dailyTempIconDisplay">
     <div class="maxminDisplay">
       <span class="maxTemp"></span>
       <span class="minTemp"></span>
@@ -124,6 +131,7 @@
 
   <div class="dayCard">
     <span class="day"></span>
+    <img src="" alt="weather-icon" class="dailyTempIconDisplay">
     <div class="maxminDisplay">
        <span class="maxTemp"></span>
       <span class="minTemp"></span>
@@ -132,6 +140,7 @@
 
   <div class="dayCard">
     <span class="day"></span>
+    <img src="" alt="weather-icon" class="dailyTempIconDisplay">
     <div class="maxminDisplay">
        <span class="maxTemp"></span>
       <span class="minTemp"></span>
@@ -140,6 +149,7 @@
 
   <div class="dayCard">
     <span class="day"></span>
+    <img src="" alt="weather-icon" class="dailyTempIconDisplay">
     <div class="maxminDisplay">
       <span class="maxTemp"></span>
       <span class="minTemp"></span>
@@ -167,9 +177,6 @@
 
 
 </main>
-
-
-
 
 
   <script src="scripts/script.js"></script>

@@ -30,6 +30,7 @@ body {
     min-height: 100vh;
     display: flex;
     justify-content: center;
+    align-items: center;
 }
 
 .header {
@@ -222,9 +223,12 @@ h1{
     font-size: 90px;
     font-weight: 700;
     line-height: 1;
-    margin-top:20px;
-    margin-left: 180px;
-}
+.temperatureDisplay{
+    font-family: Bricolage Grotesque, sans-serif;
+    font-size: 90px;
+    font-weight: 700;
+    line-height: 1;
+}}
 
 .temperatureDiv, .humidityDiv, .windDiv, .precipitatonDiv{
     height: 150px;
@@ -344,7 +348,7 @@ p{
 }
 
 .maxminDisplay{
-    margin-top: 100px;
+    margin-top: 50px;
 }
 
 .day{
@@ -475,4 +479,29 @@ p{
 
 .searchButton:focus{
     border: 2px solid var(--blue-700);
+}
+
+.iconDisplay{
+    height: 90px;
+    width: 90px;
+    z-index: 100;
+}
+
+.tempIconDisplay{
+    display: flex;
+    flex-direction: row;
+    gap:40px;
+    margin-top:20px;
+    margin-left: 180px;
+}
+
+.dailyTempIconDisplay{
+    height: 80px;
+    width: 80px;
+}
+
+.hourWeatherIcon{
+    height: 40px;
+    width: 40px;
+
 }
