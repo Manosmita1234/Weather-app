@@ -1,22 +1,19 @@
-name: Weather App Workflow
+name: Weather App Code Review
 
-on: [push, pull_request]
+on:
+  pull_request:
+    branches:
+      - main
 
 jobs:
-  build:
+  code-review:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - name: Run CodeRabbit Review
+        uses: coderabbitai/coderabbit-action@v1
         with:
-          node-version: 18
-
-      - name: Install dependencies
-        run: npm install
-
-      - name: Run build
-        run: npm run build
+          api_token: ${{ secrets.CODERABBIT_API_TOKEN }}
