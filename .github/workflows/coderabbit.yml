@@ -1,0 +1,19 @@
+name: CodeRabbit AI Code Review
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
+
+jobs:
+  code-review:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Run CodeRabbit review
+        uses: coderabbitai/github-action@v1
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          coderabbit-token: ${{ secrets.CODERABBIT_TOKEN }}
+
