@@ -1,20 +1,22 @@
-name: CodeRabbit AI Code Review
+name: Code Review with CodeRabbit AI
+
 on:
   push:
     branches: [main]
   pull_request:
     branches: [main]
+
 jobs:
-  code-review:
+  ai-code-review:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-      
-      - name: Run CodeRabbit review
+
+      - name: Run AI PR Review
         uses: coderabbitai/ai-pr-reviewer@latest
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          coderabbit-api-token: ${{ secrets.CODERABBIT_API_TOKEN }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
 
 
