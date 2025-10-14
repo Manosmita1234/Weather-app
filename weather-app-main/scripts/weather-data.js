@@ -1,3 +1,149 @@
+let currentTempunit = "Celcius";
+let currentWindunit = "km/h";
+let currentPrecipitationunit = "mm";
+window.lastWeatherData = null;
+
+function cToF(c) {
+  return (c * 9/5) + 32;
+}
+
+function fToC(f) {
+  return (f - 32) * 5/9;
+}
+
+function kmhToMph(kmh) {
+  return kmh / 1.60934;
+}
+
+function mphToKmh(mph) {
+  return mph * 1.60934;
+}
+
+function mmToIn(mm) {
+  return mm / 25.4;
+}
+
+function inToMm(inches) {
+  return inches * 25.4;
+}
+
+function createUnitButtonContent(){
+    const existing = document.querySelector(".unitsContent");
+    if(existing){
+        existing.remove();
+        return;
+    }
+
+    const dropDownWraper = document.querySelector(".unitsDropdown");
+    
+    const unitsContent =  document.createElement("div");
+    unitsContent.className = "unitsContent";
+
+    function createUnitDiv(textDivName , className , button1Text, button1Class, button2Text, button2Class){
+        const div = document.createElement("div");
+        const textDiv = document.createElement("div");
+        textDiv.textContent = textDivName;
+        textDiv.className = className;
+
+        const button1 = document.createElement("button");
+        button1.textContent = button1Text;
+        button1.className = button1Class ;
+
+        const button2 = document.createElement("button");
+        button2.textContent= button2Text;
+        button2.className = button2Class;
+
+        div.appendChild(textDiv);
+        textDiv.append(button1, button2);
+        return {div, textDiv, button1, button2};
+    }
+
+    const temperatureUnit = createUnitDiv("TEMPERATURE", "temperatureUnit", "Celcius (°C)", "celciusSpan", "Fahrenheit(°F)", "fahrenheitSpan");
+    const windSpeedUnit = createUnitDiv("WIND SPEED", "windSpeedUnit", "km/h", "kmhSpan", "mph", "mphSpan");
+    const precipitationUnit = createUnitDiv("PRECIPITATION", "precipitationUnit", "Milimeters(mm)", "mmSpan", "Inches(in)", "inSpan");
+
+    // Set active buttons based on current units
+    if (currentTempunit.toLowerCase() === "celcius") {
+      temperatureUnit.button1.classList.add("active");
+    } else {
+      temperatureUnit.button2.classList.add("active");
+    }
+
+    if (currentWindunit === "km/h") {
+      windSpeedUnit.button1.classList.add("active");
+    } else {
+      windSpeedUnit.button2.classList.add("active");
+    }
+
+    if (currentPrecipitationunit === "mm") {
+      precipitationUnit.button1.classList.add("active");
+    } else {
+      precipitationUnit.button2.classList.add("active");
+    }
+
+    // Temperature unit buttons
+    temperatureUnit.button1.addEventListener("click", ()=>{
+      currentTempunit = "Celcius";
+      temperatureUnit.button1.classList.add("active");
+      temperatureUnit.button2.classList.remove("active");
+      rerenderWeatherWithCurrentData();
+    });
+
+    temperatureUnit.button2.addEventListener("click", ()=>{
+      currentTempunit = "Fahrenheit";
+      temperatureUnit.button2.classList.add("active");
+      temperatureUnit.button1.classList.remove("active");
+      rerenderWeatherWithCurrentData();
+    });
+
+    // Wind speed unit buttons
+    windSpeedUnit.button1.addEventListener("click", ()=>{
+      currentWindunit = "km/h";
+      windSpeedUnit.button1.classList.add("active");
+      windSpeedUnit.button2.classList.remove("active");
+      rerenderWeatherWithCurrentData();
+    });
+
+    windSpeedUnit.button2.addEventListener("click", ()=>{
+      currentWindunit = "mph";
+      windSpeedUnit.button2.classList.add("active");
+      windSpeedUnit.button1.classList.remove("active");
+      rerenderWeatherWithCurrentData();
+    });
+
+    // Precipitation unit buttons
+    precipitationUnit.button1.addEventListener("click", () => {
+      currentPrecipitationunit = "mm";
+      precipitationUnit.button1.classList.add("active");
+      precipitationUnit.button2.classList.remove("active");
+      rerenderWeatherWithCurrentData();
+    });
+
+    precipitationUnit.button2.addEventListener("click", () => {
+      currentPrecipitationunit = "in";
+      precipitationUnit.button2.classList.add("active");
+      precipitationUnit.button1.classList.remove("active");
+      rerenderWeatherWithCurrentData();
+    });
+
+    dropDownWraper.appendChild(unitsContent);
+    unitsContent.append(temperatureUnit.div, windSpeedUnit.div, precipitationUnit.div);
+}
+
+function rerenderWeatherWithCurrentData(){
+    if (!window.lastWeatherData) return;
+    renderWeather(window.lastWeatherData);
+    renderDailyData(window.lastWeatherData.dailyData);
+    renderHourlyData(window.lastWeatherData.hourlyData);
+}
+
+function handleUnitButton(){
+    const unitButton = document.querySelector(".unitsDropdown");
+    unitButton.addEventListener("click", createUnitButtonContent);
+}
+
+handleUnitButton();
+
 async function getLocation(location) {
   const url = `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(location)}&count=1`;
   const response = await fetch(url);
@@ -76,11 +222,29 @@ async function fetchWeather(latitude, longitude) {
 function renderWeather(weatherData) {
   const { current, humidity, precipitation, windSpeed, feelsLike } = weatherData;
 
-  document.querySelector(".temperatureDisplay").textContent = `${Math.round(current.temperature)}°C`;
+  let temp = current.temperature;
+  let feel = parseFloat(feelsLike);
+  let wind = windSpeed;
+  let precip = precipitation;
+
+  if (currentTempunit.toLowerCase() === "fahrenheit") {
+    temp = cToF(temp);
+    feel = cToF(feel);
+  }
+
+  if (currentWindunit === "mph") {
+    wind = kmhToMph(wind);
+  }
+
+  if (currentPrecipitationunit === "in") {
+    precip = mmToIn(precip).toFixed(2);
+  }
+
+  document.querySelector(".temperatureDisplay").textContent = `${Math.round(temp)}°${currentTempunit === "Celcius" ? "C" : "F"}`;
   document.querySelector(".humidityDisplayData").textContent = `${humidity}%`;
-  document.querySelector(".precipitationDisplayData").textContent = `${precipitation}mm`;
-  document.querySelector(".windDisplayData").textContent = `${Math.round(windSpeed)}km/h`;
-  document.querySelector(".apparentTempDisplayData").textContent = `${Math.round(feelsLike)}°`;
+  document.querySelector(".precipitationDisplayData").textContent = `${precip}${currentPrecipitationunit}`;
+  document.querySelector(".windDisplayData").textContent = `${Math.round(wind)} ${currentWindunit}`;
+  document.querySelector(".apparentTempDisplayData").textContent = `${Math.round(feel)}°`;
 }
 
 function renderDailyData(dailyData) {
@@ -98,8 +262,16 @@ function renderDailyData(dailyData) {
     const dayName = new Date(date).toLocaleDateString("en-US", { weekday: "short" });
     daySpan.textContent = dayName;
 
-    maxTempDiv.textContent = `${Math.round(dailyData.temperature_2m_max[index])}°`;
-    minTempDiv.textContent = `${Math.round(dailyData.temperature_2m_min[index])}°`;
+    let maxTemp = dailyData.temperature_2m_max[index];
+    let minTemp = dailyData.temperature_2m_min[index];
+
+    if (currentTempunit.toLowerCase() === "fahrenheit") {
+      maxTemp = cToF(maxTemp);
+      minTemp = cToF(minTemp);
+    }
+
+    maxTempDiv.textContent = `${Math.round(maxTemp)}°`;
+    minTempDiv.textContent = `${Math.round(minTemp)}°`;
 
     const code = dailyData.weathercode[index];
     dailyIcon.src = weatherIconMap[code] || "./assets/images/icon-sunny.webp";
@@ -109,7 +281,7 @@ function renderDailyData(dailyData) {
 function renderHourlyData(hourlyData) {
   const { time, temperature_2m, weathercode } = hourlyData;
   const container = document.querySelector(".hourlyForecast");
-  container.innerHTML = ""; // clear previous cards
+  container.innerHTML = ""; 
 
   const now = new Date();
   const cutoff = new Date(now.getTime() + 24 * 60 * 60 * 1000);
@@ -132,14 +304,19 @@ function renderHourlyData(hourlyData) {
 
       const tempSpan = document.createElement("span");
       tempSpan.className = "hourlyDataSpan";
-      tempSpan.textContent = `${Math.round(temperature_2m[i])}°C`;
+      
+      let hourlyTemp = temperature_2m[i];
+      if (currentTempunit.toLowerCase() === "fahrenheit") {
+        hourlyTemp = cToF(hourlyTemp);
+      }
+      
+      tempSpan.textContent = `${Math.round(hourlyTemp)}°${currentTempunit === "Celcius" ? "C" : "F"}`;
 
       hourCard.append(icon, timeSpan, tempSpan);
       container.appendChild(hourCard);
     }
   }
 }
-
 
 async function connectWithSearchBtn() {
   const location = document.querySelector(".searchInput").value.trim();
@@ -149,6 +326,7 @@ async function connectWithSearchBtn() {
     const { name, country, latitude, longitude } = await getLocation(location);
     document.querySelector(".locationDisplay").textContent = `${name}, ${country}`;
     const weather = await fetchWeather(latitude, longitude);
+    window.lastWeatherData = weather; 
     renderWeather(weather);
     renderDailyData(weather.dailyData);
     renderHourlyData(weather.hourlyData);
@@ -157,7 +335,6 @@ async function connectWithSearchBtn() {
     alert(err.message);
   }
 }
-
 
 document.querySelector(".searchButton").addEventListener("click", (e) => {
   e.preventDefault();

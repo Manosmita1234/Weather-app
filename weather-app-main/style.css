@@ -505,3 +505,12 @@ p{
     width: 40px;
 
 }
+
+
+.active{
+    background-color: var(--blue-500);
+}
+
+.active:hover{
+    background-color: var(--blue-500);
+}
