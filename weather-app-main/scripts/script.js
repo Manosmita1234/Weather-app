@@ -1,6 +1,6 @@
 
 
-function createUnitButtonContent(){
+/*function createUnitButtonContent(){
     const existing = document.querySelector(".unitsContent");
     if(existing){
         existing.remove();
@@ -33,9 +33,9 @@ function createUnitButtonContent(){
         return div;
     }
 
-    const temperatureUnit = createUnitDiv("TEMPERATURE", "temperatureUnit", "Celcius (°C)", "celciusSpan", "Fahrenheit(°F)", "fahrenheitSpan");
-    const windSpeedUnit = createUnitDiv("WIND SPEED", "windSpeedUnit", "km/h", "kmhSpan", "mph", "mphSpan");
-    const precipitationUnit = createUnitDiv("PRECIPITATION", "precipitationUnit", "Milimeters(mm)", "mmSpan", "Inches(in)", "inSpan");
+    const temperatureUnit = createUnitDiv("TEMPERATURE", "temperatureUnit", "Celcius (°C)", "celciusSpan active", "Fahrenheit(°F)", "fahrenheitSpan ");
+    const windSpeedUnit = createUnitDiv("WIND SPEED", "windSpeedUnit", "km/h", "kmhSpan active", "mph", "mphSpan");
+    const precipitationUnit = createUnitDiv("PRECIPITATION", "precipitationUnit", "Milimeters(mm)", "mmSpan active", "Inches(in)", "inSpan");
 
 
     dropDownWraper.appendChild(unitsContent);
@@ -43,25 +43,17 @@ function createUnitButtonContent(){
     
 }
 
-let C = document.querySelector(".celciusSpan");
+let currentunit = "Celcius";
 
-let temperature = {
-    C:true,
-    F:false
+window.lastWeatherData = null;
+
+
+function cToF(c) {
+  return (c * 9/5) + 32;
 }
 
-if(C === true){
-    C.Style.backgroundColor = "red"
-}
-
-let windspeed = {
-    kmph:true,
-    mph:false
-}
-
-let precipitation = {
-    mm:true,
-    in:false
+function fToC(f) {
+  return (f - 32) * 5/9;
 }
 
 function handleUnitButton(){
@@ -69,4 +61,4 @@ function handleUnitButton(){
     unitButton.addEventListener("click", createUnitButtonContent);
 }
 
-handleUnitButton();
+handleUnitButton();*/
